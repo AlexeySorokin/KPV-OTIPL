@@ -34,7 +34,7 @@ class Pattern:
         return hash(self) == hash(other)
 
 
-def extract_pattern(first, second, method="naive_substring"):
+def extract_pattern(first, second, method="naive_substring", keep_source=True):
     if method == "naive_substring":
         func = lcs_naive.longest_common_substring
     else:
@@ -42,7 +42,8 @@ def extract_pattern(first, second, method="naive_substring"):
     match = func(first, second)
     if "substring" in method:
         answer = Pattern(first[:match["first_start"]], second[:match["second_start"]],
-                         first[match["first_end"]:], second[match["second_end"]:])
+                         first[match["first_end"]:], second[match["second_end"]:],
+                         keep_source=keep_source)
     else:
         raise NotImplementedError()
     return answer
